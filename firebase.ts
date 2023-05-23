@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 import { getAuth } from 'firebase/auth'
+import { deleteDoc, doc, getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyCnad0iZf1GUgkCb4Cdn_NsTdqRkT4RnR4',
@@ -21,3 +22,8 @@ const firebaseConfig = {
 export const firebase = initializeApp(firebaseConfig)
 export const auth = getAuth(firebase)
 export const analytics = getAnalytics(firebase)
+export const db = getFirestore(firebase)
+
+export async function deleteTodo(id:string) {
+	await deleteDoc(doc(db, 'todos', id))
+}

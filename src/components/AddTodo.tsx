@@ -1,6 +1,9 @@
 import { useForm } from 'react-hook-form'
-import { z, ZodType } from 'zod'
+import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { addDoc, collection } from 'firebase/firestore'
+import { db } from '../../firebase'
+import { useAuth } from '../context/AuthContext'
 
 type Props = {}
 
@@ -11,6 +14,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 
 function AddTodo({}: Props) {
+	const { currentUser } = useAuth()
 
 	const {
 		register,
@@ -21,9 +25,13 @@ function AddTodo({}: Props) {
 		resolver: zodResolver(schema)
 	})
 
-	const submitForm = (formValues: FormData, e: any) => {
+	const submitForm = async (formValues: FormData, e: any) => {
 		e.preventDefault()
-		console.log(`formValues: ${formValues.title}`)
+		await addDoc(collection(db, 'todos'), {
+			title: formValues.title,
+			userID: currentUser?.uid,
+			createdAt: Date.now()
+		})
 		reset()
 	}
 
@@ -36,7 +44,7 @@ function AddTodo({}: Props) {
 				className='p-2 rounded'
 				placeholder='Write a TODO'
 				type='text'
-				{...register('title', {required: true})}
+				{...register('title', { required: true })}
 			></input>
 			<button
 				type='submit'
