@@ -5,18 +5,10 @@ import { db } from '../../firebase'
 import { DocumentData } from '@firebase/firestore-types'
 import { useAuth } from '../context/AuthContext'
 
-type TodoType = {
-	userID: string
-	title: string
-	createdAt: number
-	subtitle?: string
-	id:string
-}
-
 function TodoContainer() {
 	const { currentUser } = useAuth()
 
-	const [todos, setTodos] = useState<TodoType[]>([])
+	const [todos, setTodos] = useState<DocumentData[]>([])
 
 	useEffect(() => {
 		const getTodos = query(
@@ -24,7 +16,7 @@ function TodoContainer() {
 			where('userID', '==', currentUser?.uid)
 		)
 		const unsubscribe = onSnapshot(getTodos, (QuerySnapshot) => {
-			let todosArray: TodoType[] = []
+			let todosArray: DocumentData[] = []
 			QuerySnapshot.forEach((document: DocumentData) => {
 				todosArray.push({ ...document.data(), id: document.id })
 			})
@@ -37,8 +29,7 @@ function TodoContainer() {
 			{todos.map((todo, index) => (
 				<Todo
 					key={index}
-					title={todo.title}
-					id={todo.id}
+					todo={todo}
 				/>
 			))}
 		</ul>
