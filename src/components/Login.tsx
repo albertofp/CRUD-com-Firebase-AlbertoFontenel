@@ -9,6 +9,7 @@ import {
 	onAuthStateChanged,
 	signInWithEmailAndPassword
 } from 'firebase/auth'
+import { useAuth } from '../context/AuthContext'
 
 type Props = {}
 
@@ -21,7 +22,7 @@ type FormData = z.infer<typeof schema>
 
 function Login({}: Props) {
 	const [mode, setMode] = useState('login')
-	const [user, setUser] = useState<User | null>(null)
+	const { signup, login } = useAuth()
 
 	const {
 		register,
@@ -32,39 +33,13 @@ function Login({}: Props) {
 		resolver: zodResolver(schema)
 	})
 
-		useEffect(() => {
-			onAuthStateChanged(auth, (currentUser) => {
-				setUser(currentUser)
-				console.log('auth state changed')
-			})
-		},[])
-		
-
-	const registerUser = async (email: string, password: string) => {
-		try {
-			const user = await createUserWithEmailAndPassword(auth, email, password)
-			console.log(`user registered: ${user.user.email}`)
-		} catch (error: any) {
-			console.error(error.message)
-		}
-	}
-
-	const loginUser = async (email: string, password: string) => {
-		try {
-			const user = await signInWithEmailAndPassword(auth, email, password)
-			console.log(`user logged in: ${user.user.email}`)
-		} catch (error: any) {
-			console.error(error.message)
-		}
-	}
-
 	const onSubmit = (formValues: FormData, e: any) => {
 		e.preventDefault()
 		console.log(`formValues: ${formValues.email} , ${formValues.password}`)
 		{
 			mode == 'signup'
-				? registerUser(formValues.email, formValues.password)
-				: loginUser(formValues.email, formValues.password)
+				? signup!(formValues.email, formValues.password)
+				: login!(formValues.email, formValues.password)
 		}
 		reset()
 	}
@@ -122,13 +97,6 @@ function Login({}: Props) {
 						className='text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg'
 					>
 						{mode == 'signup' ? 'Sign up' : 'Log in'}
-					</button>
-					<button
-						type='submit'
-						className='text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg'
-						onClick={() => auth.signOut()}
-					>
-						Log out
 					</button>
 				</div>
 			</form>
