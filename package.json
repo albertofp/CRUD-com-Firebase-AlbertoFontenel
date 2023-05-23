@@ -28,6 +28,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.1.0",
     "firebase": "^9.22.0",
+    "framer-motion": "^10.12.14",
     "lucide-react": "^0.220.0",
     "react-hook-form": "^7.43.9",
     "zod": "^3.21.4"
