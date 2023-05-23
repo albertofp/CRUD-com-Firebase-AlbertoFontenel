@@ -1,4 +1,4 @@
-import { Trash2 } from 'lucide-react'
+import { Edit, Trash2 } from 'lucide-react'
 
 type Props = {}
 
@@ -9,10 +9,16 @@ function Todo({}: Props) {
 				<h3 className='text-xl'>Title</h3>
 				<h4 className='font-light'>Subtitle</h4>
 			</div>
-			<Trash2
-				fill='lightgray'
-				cursor='pointer'
-			/>
+			<div className='flex flex-col gap-1'>
+				<Trash2
+					fill='orange'
+					cursor='pointer'
+				/>
+				<Edit
+					fill='lightblue'
+					cursor='pointer'
+				/>
+			</div>
 		</div>
 	)
 }
