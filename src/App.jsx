@@ -1,6 +1,7 @@
 import './App.css'
 import Form from './components/Form'
 import TodoContainer from './components/TodoContainer'
+import Login from './components/Login'
 
 export default function App() {
 	return (
@@ -8,6 +9,7 @@ export default function App() {
 			<h1 className='p-2 font-bold text-4xl mb-10'>My Todo List</h1>
 			<Form />
 			<TodoContainer />
+			<Login />
 		</main>
 	)
 }

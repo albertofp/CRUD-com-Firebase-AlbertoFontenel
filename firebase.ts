@@ -2,10 +2,8 @@ import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 import { getAuth } from 'firebase/auth'
 
-const apiKey = import.meta.env.VITE_FIREBASE_API_KEY as string
-
 const firebaseConfig = {
-	apiKey: apiKey,
+	apiKey: 'AIzaSyCnad0iZf1GUgkCb4Cdn_NsTdqRkT4RnR4',
 
 	authDomain: 'crud-tp3.firebaseapp.com',
 
