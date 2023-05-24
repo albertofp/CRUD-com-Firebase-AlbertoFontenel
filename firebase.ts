@@ -33,8 +33,6 @@ export const auth = getAuth(firebase)
 export const analytics = getAnalytics(firebase)
 export const db = getFirestore(firebase)
 
-const { currentUser } = useAuth()
-
 export async function deleteTodo(id: string) {
 	await deleteDoc(doc(db, 'todos', id))
 }
@@ -45,10 +43,11 @@ export async function toggleComplete(todo: DocumentData) {
 	})
 }
 
-export const createTodo = async (title: string) => {
+export const createTodo = async (title: string, userID:string) => {
 	await addDoc(collection(db, 'todos'), {
 		title: title,
-		userID: currentUser?.uid,
-		createdAt: Date.now()
+		userID: userID,
+		createdAt: Date.now(),
+		completed: false
 	})
 }

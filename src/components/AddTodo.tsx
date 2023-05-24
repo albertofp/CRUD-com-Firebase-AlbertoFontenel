@@ -27,7 +27,7 @@ function AddTodo({}: Props) {
 
 	const submitForm = async (formValues: FormData, e: any) => {
 		e.preventDefault()
-		createTodo(formValues.title)
+		createTodo(formValues.title, currentUser!.uid)
 		reset()
 	}
 
