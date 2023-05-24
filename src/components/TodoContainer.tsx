@@ -63,10 +63,10 @@ function TodoContainer() {
 
 	return (
 		<>
-			{todos.length == 0 ?? (
-				<h1 className='text-4xl opacity-25'>Nothing to do</h1>
-			)}
 			<ul className='flex flex-col gap-2 mt-10 w-full items-center h-1/2'>
+				{todos.length == 0 && (
+					<h1 className='text-4xl opacity-25'>Nothing to do :)</h1>
+				)}
 				{displayTodos}
 			</ul>
 			<ReactPaginate
