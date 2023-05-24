@@ -31,6 +31,7 @@
     "framer-motion": "^10.12.14",
     "lucide-react": "^0.220.0",
     "react-hook-form": "^7.43.9",
+    "react-paginate": "^8.2.0",
     "zod": "^3.21.4"
   }
 }

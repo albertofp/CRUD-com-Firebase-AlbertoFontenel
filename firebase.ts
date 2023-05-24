@@ -10,7 +10,6 @@ import {
 	getFirestore,
 	updateDoc
 } from 'firebase/firestore'
-import { useAuth } from './src/context/AuthContext'
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyCnad0iZf1GUgkCb4Cdn_NsTdqRkT4RnR4',
