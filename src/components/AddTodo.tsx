@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { addDoc, collection } from 'firebase/firestore'
-import { db } from '../../firebase'
+import { createTodo, db } from '../../firebase'
 import { useAuth } from '../context/AuthContext'
 
 type Props = {}
@@ -27,11 +27,7 @@ function AddTodo({}: Props) {
 
 	const submitForm = async (formValues: FormData, e: any) => {
 		e.preventDefault()
-		await addDoc(collection(db, 'todos'), {
-			title: formValues.title,
-			userID: currentUser?.uid,
-			createdAt: Date.now()
-		})
+		createTodo(formValues.title)
 		reset()
 	}
 

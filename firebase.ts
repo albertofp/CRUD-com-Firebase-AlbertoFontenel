@@ -1,7 +1,16 @@
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 import { getAuth } from 'firebase/auth'
-import { DocumentData, deleteDoc, doc, getFirestore, updateDoc } from 'firebase/firestore'
+import {
+	DocumentData,
+	addDoc,
+	collection,
+	deleteDoc,
+	doc,
+	getFirestore,
+	updateDoc
+} from 'firebase/firestore'
+import { useAuth } from './src/context/AuthContext'
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyCnad0iZf1GUgkCb4Cdn_NsTdqRkT4RnR4',
@@ -24,12 +33,22 @@ export const auth = getAuth(firebase)
 export const analytics = getAnalytics(firebase)
 export const db = getFirestore(firebase)
 
-export async function deleteTodo(id:string) {
+const { currentUser } = useAuth()
+
+export async function deleteTodo(id: string) {
 	await deleteDoc(doc(db, 'todos', id))
 }
 
-export async function toggleComplete(todo:DocumentData){
+export async function toggleComplete(todo: DocumentData) {
 	await updateDoc(doc(db, 'todos', todo.id), {
 		complete: !todo.complete
+	})
+}
+
+export const createTodo = async (title: string) => {
+	await addDoc(collection(db, 'todos'), {
+		title: title,
+		userID: currentUser?.uid,
+		createdAt: Date.now()
 	})
 }
