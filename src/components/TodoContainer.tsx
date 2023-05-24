@@ -6,6 +6,7 @@ import { DocumentData } from '@firebase/firestore-types'
 import { useAuth } from '../context/AuthContext'
 import ReactPaginate from 'react-paginate'
 import { motion, AnimatePresence } from 'framer-motion'
+import { ArrowLeft, ArrowRight, GripHorizontal } from 'lucide-react'
 
 function TodoContainer() {
 	const { currentUser } = useAuth()
@@ -48,7 +49,7 @@ function TodoContainer() {
 					visible: (index) => ({
 						opacity: 1,
 						transition: {
-							delay: index * 0.1
+							delay: index * 0.25
 						}
 					})
 				}}
@@ -67,14 +68,20 @@ function TodoContainer() {
 
 	return (
 		<>
-			<ul className='flex flex-col gap-2 mt-10 w-full items-center'>
+			<ul className='flex flex-col gap-2 mt-10 w-full items-center h-1/2'>
 				{displayTodos}
 			</ul>
 			<ReactPaginate
 				pageCount={Math.ceil(todos.length / TODOS_PER_PAGE)}
-				previousLabel={'Previous'}
-				nextLabel={'Next'}
+				previousLabel={<ArrowLeft />}
+				nextLabel={<ArrowRight />}
 				onPageChange={({ selected }) => setPageNumber(selected)}
+				className='flex gap-2 justify-evenly items-center'
+				pageClassName='font-light p-2 rounded-full text-2xl'
+				activeLinkClassName='font-bold p-2 rounded-full text-2xl'
+				breakLabel={<GripHorizontal />}
+				breakClassName='font-light p-2 rounded-full text-2xl'
+				breakLinkClassName='font-light p-2 rounded-full text-2xl'
 			/>
 		</>
 	)
