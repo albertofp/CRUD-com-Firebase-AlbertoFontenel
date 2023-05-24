@@ -37,14 +37,14 @@ function AddTodo({}: Props) {
 			onSubmit={handleSubmit(submitForm)}
 		>
 			<input
-				className='p-2 rounded'
+				className='p-2 rounded bg-slate-50 border-slate-300 border'
 				placeholder='Write a TODO'
 				type='text'
 				{...register('title', { required: true })}
 			></input>
 			<button
 				type='submit'
-				className='flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg'
+				className='flex mx-auto text-white bg-green-500 border-0 py-2 px-4 focus:outline-none hover:bg-green-600 rounded text-lg'
 			>
 				ADD TODO
 			</button>

@@ -4,7 +4,7 @@ import { DocumentData } from 'firebase/firestore'
 
 function Todo({ todo }: { todo: DocumentData }) {
 	return (
-		<li className='border-2 flex justify-between items-center p-4 min-w-[350px] w-1/3 rounded-sm shadow-sm self-center hover:translate-x-3 transition-all bg-slate-50'>
+		<li className='border-2 flex justify-between items-center p-4 min-w-[350px] max-w-2/3 rounded-sm shadow-sm self-center hover:translate-x-3 transition-all bg-slate-50 max-w-fit overflow-hidden'>
 			<div className='flex gap-2'>
 				<input
 					type='checkbox'
@@ -12,7 +12,7 @@ function Todo({ todo }: { todo: DocumentData }) {
 					onChange={() => toggleComplete(todo)}
 					checked={todo.completed ? true : false}
 				/>
-				<h3 className='text-xl'>{todo.title}</h3>
+				<h3 className='text-xl max-w-fit'>{todo.title}</h3>
 			</div>
 			<div className='flex flex-col gap-1'>
 				<Trash2

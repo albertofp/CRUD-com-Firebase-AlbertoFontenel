@@ -10,17 +10,13 @@ import { ArrowLeft, ArrowRight, GripHorizontal } from 'lucide-react'
 
 function TodoContainer() {
 	const { currentUser } = useAuth()
-
 	const [todos, setTodos] = useState<DocumentData[]>([])
-	const [loading, setLoading] = useState(false)
 	const [pageNumber, setPageNumber] = useState(0)
-
 	const TODOS_PER_PAGE = 6
 	const pagesVisited = pageNumber * TODOS_PER_PAGE
 	const currentTodos = todos.slice(pagesVisited, pagesVisited + TODOS_PER_PAGE)
 
 	useEffect(() => {
-		setLoading(true)
 		const getTodos = query(
 			collection(db, 'todos'),
 			where('userID', '==', currentUser?.uid)
@@ -31,7 +27,6 @@ function TodoContainer() {
 				todosArray.push({ ...document.data(), id: document.id })
 			})
 			setTodos(todosArray)
-			setLoading(false)
 		})
 
 		return () => unsubscribe()
@@ -68,6 +63,9 @@ function TodoContainer() {
 
 	return (
 		<>
+			{todos.length == 0 ?? (
+				<h1 className='text-4xl opacity-25'>Nothing to do</h1>
+			)}
 			<ul className='flex flex-col gap-2 mt-10 w-full items-center h-1/2'>
 				{displayTodos}
 			</ul>
@@ -82,6 +80,8 @@ function TodoContainer() {
 				breakLabel={<GripHorizontal />}
 				breakClassName='font-light p-2 rounded-full text-2xl'
 				breakLinkClassName='font-light p-2 rounded-full text-2xl'
+				disabledLinkClassName='opacity-10'
+				renderOnZeroPageCount={null}
 			/>
 		</>
 	)
