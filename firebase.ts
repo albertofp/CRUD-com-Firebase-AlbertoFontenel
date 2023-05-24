@@ -39,11 +39,12 @@ export async function deleteTodo(id: string) {
 
 export async function toggleComplete(todo: DocumentData) {
 	await updateDoc(doc(db, 'todos', todo.id), {
-		complete: !todo.complete
+		completed: !todo.completed
 	})
+	console.log('toggleComplete called')
 }
 
-export const createTodo = async (title: string, userID:string) => {
+export const createTodo = async (title: string, userID: string) => {
 	await addDoc(collection(db, 'todos'), {
 		title: title,
 		userID: userID,

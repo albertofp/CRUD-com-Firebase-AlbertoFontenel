@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Todo from './Todo'
 import { collection, onSnapshot, query, where } from 'firebase/firestore'
-import { db } from '../../firebase'
+import { db, toggleComplete } from '../../firebase'
 import { DocumentData } from '@firebase/firestore-types'
 import { useAuth } from '../context/AuthContext'
 import { motion, AnimatePresence } from 'framer-motion'
