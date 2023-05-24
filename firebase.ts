@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 import { getAuth } from 'firebase/auth'
-import { deleteDoc, doc, getFirestore } from 'firebase/firestore'
+import { DocumentData, deleteDoc, doc, getFirestore, updateDoc } from 'firebase/firestore'
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyCnad0iZf1GUgkCb4Cdn_NsTdqRkT4RnR4',
@@ -26,4 +26,10 @@ export const db = getFirestore(firebase)
 
 export async function deleteTodo(id:string) {
 	await deleteDoc(doc(db, 'todos', id))
+}
+
+export async function toggleComplete(todo:DocumentData){
+	await updateDoc(doc(db, 'todos', todo.id), {
+		complete: !todo.complete
+	})
 }
