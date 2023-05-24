@@ -24,7 +24,7 @@ function TodoContainer() {
 			setTodos(todosArray)
 		})
 
-		return unsubscribe
+		return () => unsubscribe()
 	}, [])
 
 	return (
